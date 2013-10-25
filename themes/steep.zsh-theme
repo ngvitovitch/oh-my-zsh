@@ -28,7 +28,13 @@ function collapse_pwd {
   echo $(pwd | sed -e "s,^$HOME,~,")
 }
 
-#RPROMPT='$(battery_icon)'
+function jobs_info {
+  if [ `jobs | wc -l` -gt 0 ]; then
+    echo "%{$fg_bold[red]%}running%{$reset_color%}"
+    jobs
+    printf "\n"
+  fi
+}
 
 PROMPT='
 %{$fg[magenta]%}%n%{$reset_color%} at %{$fg_bold[yellow]%}%m%{$reset_color%} in %{$fg_bold[green]%}$(collapse_pwd)%{$reset_color%}$(git_prompt_info)
